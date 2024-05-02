@@ -46,6 +46,23 @@ class UserModel {
       );
     });
   }
+
+  static async login(email, password) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT * FROM users WHERE email=?",
+        [email],
+        (error, result) => {
+          if (!error && result.length > 0) {
+            const user = result[0];
+            resolve(user);
+          } else {
+            resolve(null);
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = UserModel;
